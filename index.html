@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="th"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ผจญภัยโรงเรียนพุทธศาสนา</title>
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#fff3d6;--bg2:#bfe3b0;--ink:#3b2a14;--card:#fffaf0;--kasa:#e8871e;--gold:#f2b705;--leaf:#2f7d4f;--lotus:#e86a9a;--bad:#b0572d;--line:#e9d3a4;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#2b2112;--bg2:#17301f;--ink:#fbeccb;--card:#3a2d18;--line:#6b5528}}
+:root[data-theme="dark"]{--bg1:#2b2112;--bg2:#17301f;--ink:#fbeccb;--card:#3a2d18;--line:#6b5528}
+*{box-sizing:inherit}html,body{height:100%;margin:0}
+body{font-family:Sarabun,"Noto Sans Thai",sans-serif;color:var(--ink);background:linear-gradient(180deg,var(--bg1),var(--bg2));font-size:17px;overflow-x:hidden}
+h1,h2,h3,button,.mali{font-family:Mali,"Noto Sans Thai",sans-serif}
+.screen{display:none;min-height:100%;padding:14px;max-width:760px;margin:0 auto;animation:in .4s}
+.screen.on{display:block}@keyframes in{from{opacity:0}to{opacity:1}}
+button{font-size:1rem;font-weight:700;border:0;border-radius:18px;padding:12px 18px;cursor:pointer;color:#fff;background:var(--leaf);box-shadow:0 5px 0 #1d5233;transition:transform .1s}
+button:active{transform:translateY(3px);box-shadow:0 2px 0 #1d5233}button:focus-visible,input:focus-visible{outline:3px solid var(--lotus);outline-offset:2px}
+button.big{font-size:1.25rem;padding:16px 26px;background:var(--kasa);box-shadow:0 6px 0 #a85d0e}
+button.ghost{background:var(--card);color:var(--ink);box-shadow:0 4px 0 var(--line)}button:disabled{opacity:.45}
+.card{background:var(--card);border:2px solid var(--line);border-radius:26px;padding:16px;margin:10px 0;box-shadow:0 6px 18px rgba(80,50,0,.12)}
+.center{text-align:center}.bar{display:flex;gap:8px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+#menu{text-align:center;padding-top:6vh}
+.hero{font-size:84px;display:inline-block;width:150px;height:150px;line-height:150px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe9a8,var(--gold) 60%,var(--kasa));box-shadow:0 12px 30px rgba(232,135,30,.5),inset -8px -10px 20px rgba(150,70,0,.3);animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-12px) rotate(3deg)}}
+.pals{font-size:38px;letter-spacing:10px;margin:8px 0}
+h1{font-size:2rem;margin:.3em 0}.sub{opacity:.85;margin:0 0 18px}
+.path{display:grid;gap:14px}
+.stage{display:flex;gap:14px;align-items:center;text-align:left;width:100%;background:var(--card);color:var(--ink);box-shadow:0 6px 0 var(--line);border:2px solid var(--line);padding:16px}
+.stage .ic{font-size:44px}.stage small{font-weight:400;font-family:Sarabun}.stage.lock{opacity:.5}
+.stars{letter-spacing:3px;color:var(--gold);font-size:1.3rem}
+.hud{display:flex;gap:8px;flex-wrap:wrap;font-weight:700;font-family:Mali}.chip{background:var(--card);border:2px solid var(--line);border-radius:999px;padding:4px 12px}
+.prog{height:12px;border-radius:9px;background:var(--line);overflow:hidden}.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--kasa));transition:width .4s}
+.q{font-size:1.2rem;font-weight:600;line-height:1.6;margin:8px 0}
+.opt{display:block;width:100%;text-align:left;margin:9px 0;background:var(--card);color:var(--ink);border:2px solid var(--line);box-shadow:0 4px 0 var(--line);font-family:Sarabun;font-weight:600}
+.opt.right{background:#c7efc4;border-color:var(--leaf);color:#14401f}.opt.wrong{background:#ffd9c2;border-color:var(--bad);color:#5c2a0e;animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+input.t{width:100%;font:inherit;font-size:1.2rem;padding:12px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink)}
+.mt{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mt button{font-family:Sarabun;background:var(--card);color:var(--ink);border:2px solid var(--line);box-shadow:0 4px 0 var(--line);padding:12px 8px}
+.mt button.sel{border-color:var(--kasa);background:#ffe3b0;color:#3b2a14}.mt button.done{background:#c7efc4;color:#14401f;border-color:var(--leaf)}
+.fb{display:none;border-radius:22px;padding:14px;margin-top:12px}.fb.on{display:block;animation:in .3s}
+.fb.ok{background:#fff0b8;border:2px solid var(--gold);color:#3b2a14;box-shadow:0 0 30px rgba(242,183,5,.7)}.fb.no{background:#e9e4dc;border:2px solid #9a8f80;color:#2d2820}
+.fb h3{margin:0 0 6px}.aura{position:fixed;inset:0;pointer-events:none;z-index:9;background:radial-gradient(circle,rgba(255,215,90,.55),transparent 65%);opacity:0}.aura.go{animation:fl .9s}
+@keyframes fl{30%{opacity:1}}.lot{position:fixed;font-size:34px;z-index:10;pointer-events:none;animation:up 1.4s forwards}@keyframes up{to{transform:translateY(-160px);opacity:0}}
+.timer{font-family:Mali;font-weight:700;color:var(--bad)}
+.cert{border:6px double var(--gold);border-radius:20px;padding:24px 14px;text-align:center;background:var(--card)}
+.cert h2{font-size:1.6rem;margin:.3em}.name{font-size:1.7rem;font-family:Mali;color:var(--kasa);font-weight:700}
+.panel{font-size:60px;text-align:center;padding:16px;border-radius:22px;background:linear-gradient(160deg,#ffe9a8,#bfe3b0);margin:8px 0}.panel+p{margin:4px 2px 14px;line-height:1.7}.lesson{background:#fff0b8;color:#3b2a14;border-radius:16px;padding:12px}
+@media print{body *{visibility:hidden}.cert,.cert *{visibility:visible}.cert{position:absolute;inset:0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style></head><body>
+<div class="aura" id="aura"></div>
+
+<section class="screen on" id="menu">
+ <div class="hero">🧘</div><div class="pals">🐘🐒🦚🌸</div>
+ <h1>ผจญภัยโรงเรียนพุทธศาสนา</h1>
+ <p class="sub">สังคมศึกษา ม.2 · เส้นทางแห่งปัญญาในป่าพุทธภูมิ</p>
+ <button class="big" onclick="show('map')">เริ่มการเดินทางสู่ปัญญา (START ADVENTURE)</button>
+ <p><button class="ghost" onclick="toggleSnd()" id="snd">🔔 เสียง: เปิด</button></p>
+</section>
+
+<section class="screen" id="map">
+ <div class="bar"><h2>เส้นทางธรรม (The Noble Path)</h2><button class="ghost" onclick="show('menu')">กลับ</button></div>
+ <div class="hud"><span class="chip" id="hxp"></span><span class="chip" id="hcoin"></span><span class="chip" id="hbadge"></span></div>
+ <div class="path" id="stages"></div>
+ <div class="card" id="prog"></div>
+</section>
+
+<section class="screen" id="game">
+ <div class="bar"><div class="hud"><span class="chip" id="gl"></span><span class="chip" id="gs"></span><span class="chip" id="gh"></span></div><button class="ghost" onclick="quit()">ออก</button></div>
+ <div class="prog"><i id="gp"></i></div>
+ <div class="card"><div class="bar"><span id="gtopic" class="chip"></span><span id="tm" class="timer"></span></div>
+  <div class="q" id="qt"></div><div id="qa"></div>
+  <div class="bar" style="margin-top:8px"><button class="ghost" onclick="speak()">🔊 ฟังเสียง</button><button class="ghost" id="hint" onclick="hint()">💡 แสงธรรมส่องทาง</button></div>
+  <div class="fb" id="fb"></div></div>
+</section>
+
+<section class="screen" id="res"><div class="card center" id="rc"></div></section>
+
+<section class="screen" id="epi">
+ <div class="center"><div class="pals">🪔🪔🪔🪔🪔</div><h2>หอจดหมายเหตุพุทธสาวกและพุทธสาวิกา</h2><p>The Hall of Noble Disciples</p></div>
+ <div class="card"><label>ชื่อของเธอ: <input class="t" id="nm" placeholder="พิมพ์ชื่อ-นามสกุล" oninput="cert()"></label></div>
+ <div class="cert" id="cert"></div>
+ <p class="center"><button onclick="try{window.print()}catch(e){}">🖨️ พิมพ์/บันทึกเกียรติบัตร</button> <button class="ghost" onclick="show('map')">กลับแผนที่</button></p>
+ <h2>📚 บันทึกแห่งพุทธสาวกและสาวิกา</h2><div id="chron" class="path"></div>
+</section>
+
+<section class="screen" id="story"><button class="ghost" onclick="show('epi')">← กลับห้องสมุด</button><div id="sbody"></div></section>
+
+<script>
+const $=id=>document.getElementById(id),sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){let j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+let S={xp:0,coins:0,stars:[0,0,0],badges:[],perfect:0,played:0,right:0,total:0};
+try{Object.assign(S,JSON.parse(localStorage.getItem('dhamma')||'{}'))}catch(e){}
+const save=()=>{try{localStorage.setItem('dhamma',JSON.stringify(S))}catch(e){}};
+let snd=true,ac;
+function chime(f=660,d=.5){if(!snd)return;try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();[f,f*1.5].forEach((x,i)=>{const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=x;o.type='sine';g.gain.setValueAtTime(.15,ac.currentTime+i*.1);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+d+i*.1);o.connect(g).connect(ac.destination);o.start(ac.currentTime+i*.1);o.stop(ac.currentTime+d+i*.1+.1)})}catch(e){}}
+function toggleSnd(){snd=!snd;$('snd').textContent='🔔 เสียง: '+(snd?'เปิด':'ปิด');if(!snd)speechSynthesis.cancel()}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));scrollTo(0,0);if(id==='map')drawMap();if(id==='epi')cert();if(id==='epi'&&!$('chron').innerHTML)drawChron()}
+
+/* ---------- DATA ---------- */
+const L=[
+{n:'LEVEL 1 · ศรัทธาและพุทธประวัติ',ic:'🪷',place:'สวนลุมพินีวัน และป่ามหาวัน',need:.7,badge:'พุทธสาวกฝึกหัด',t:'พุทธประวัติ / หลักธรรม'},
+{n:'LEVEL 2 · ศิษย์ผู้ตื่นรู้',ic:'🏯',place:'วัดเชตวันมหาวิหาร และเวฬุวันมหาวิหาร',need:.8,badge:'ศิษย์ผู้ทรงคุณธรรม',t:'พุทธสาวก-สาวิกา'},
+{n:'LEVEL 3 · ปัญญาญาณแห่งธรรม',ic:'📜',place:'หอแก้วปัญญาญาณ และป่าหิมพานต์',need:.8,badge:'บัณฑิตแห่งปัญญาญาณ (Master of Dhamma)',t:'ชาดก / หลักธรรม / ศาสนพิธี'}];
+// [question, options, correctIndex, explanation, topic]
+const Q1=[
+["วันสำคัญใดที่พระพุทธเจ้าแสดงโอวาทปาติโมกข์ท่ามกลางพระอรหันต์ 1,250 รูป โดยมิได้นัดหมาย?",["วันวิสาขบูชา","วันมาฆบูชา","วันอาสาฬหบูชา","วันอัฏฐมีบูชา"],1,"วันมาฆบูชา เรียกว่า จาตุรงคสันนิบาต คือการประชุมพร้อมองค์ 4 ที่เวฬุวันมหาวิหาร","พุทธประวัติ"],
+["พระพุทธเจ้าประสูติที่สถานที่ใด?",["สวนลุมพินีวัน","ป่าอิสิปตนมฤคทายวัน","กรุงราชคฤห์","เมืองกุสินารา"],0,"ประสูติใต้ต้นสาละ ณ สวนลุมพินีวัน ก่อนพุทธศักราช 80 ปี ส่วนกุสินาราคือสถานที่ปรินิพพาน","พุทธประวัติ"],
+["วันอาสาฬหบูชาเกี่ยวข้องกับเหตุการณ์ใด?",["ประสูติ","ปฐมเทศนา ธัมมจักกัปปวัตตนสูตร","ปรินิพพาน","ตรัสรู้"],1,"เป็นวันที่พระพุทธเจ้าแสดงปฐมเทศนาแก่ปัญจวัคคีย์ และเกิดพระสงฆ์องค์แรกคือ พระอัญญาโกณฑัญญะ","พุทธประวัติ"],
+["ข้อใดคือศีลข้อที่ 1 ในเบญจศีล?",["เว้นจากการลักทรัพย์","เว้นจากการฆ่าสัตว์","เว้นจากการพูดเท็จ","เว้นจากการดื่มสุรา"],1,"ปาณาติปาตา เวระมะณี คือเว้นจากการทำลายชีวิต","หลักธรรม"],
+["เบญจธรรมข้อใดเป็นคู่กับศีลข้อที่ 1?",["สัมมาอาชีวะ","เมตตากรุณา","สัจจะ","สติสัมปชัญญะ"],1,"ศีลห้ามฆ่า คู่กับธรรมคือ เมตตากรุณา ความปรารถนาดีและสงสารต่อผู้อื่น","หลักธรรม"],
+["หลักการ 3 ในโอวาทปาติโมกข์ ได้แก่ข้อใด?",["ทาน ศีล ภาวนา","ไม่ทำชั่ว ทำดี ทำจิตให้ผ่องใส","พุทธ ธรรม สงฆ์","ศรัทธา ศีล ปัญญา"],1,"หลักการ 3 คือ ไม่ทำความชั่ว ทำความดี และทำจิตใจให้บริสุทธิ์","หลักธรรม"],
+["วันวิสาขบูชาเป็นวันที่เกิดเหตุการณ์สำคัญกี่อย่าง?",["1 อย่าง","2 อย่าง","3 อย่าง (ประสูติ ตรัสรู้ ปรินิพพาน)","4 อย่าง"],2,"ทั้งสามเหตุการณ์เกิดในวันขึ้น 15 ค่ำ เดือน 6 จึงเรียกว่าวันสำคัญสากลของโลก","พุทธประวัติ"],
+["พระพุทธเจ้าตรัสรู้ใต้ต้นไม้ชนิดใด?",["ต้นสาละ","ต้นโพธิ์","ต้นไทร","ต้นอโศก"],1,"ตรัสรู้ใต้ต้นพระศรีมหาโพธิ์ ริมฝั่งแม่น้ำเนรัญชรา ที่พุทธคยา","พุทธประวัติ"],
+["พระรัตนตรัยประกอบด้วยอะไรบ้าง?",["ศีล สมาธิ ปัญญา","พุทธ ธรรม สงฆ์","ทาน ศีล ภาวนา","กาย วาจา ใจ"],1,"พระรัตนตรัย คือ แก้ว 3 ประการ ที่ชาวพุทธยึดเป็นสรณะ","หลักธรรม"],
+["ศีลข้อที่ 4 คือข้อใด?",["เว้นจากการพูดเท็จ","เว้นจากการประพฤติผิดในกาม","เว้นจากการลักทรัพย์","เว้นจากการฆ่าสัตว์"],0,"มุสาวาทา เวระมะณี คือเว้นการพูดเท็จ คู่กับธรรมคือ สัจจะ","หลักธรรม"]];
+// [name, role] pool for matching
+const P=[["พระสารีบุตร","เลิศด้านมีปัญญามาก"],["พระมหาโมคคัลลานะ","เลิศด้านมีฤทธิ์มาก"],["พระอานนท์","เลิศด้านพหูสูต"],["พระราหุล","เลิศด้านใคร่ต่อการศึกษา"],["พระอุบาลี","เลิศด้านทรงจำพระวินัย"],["พระมหากัสสปะ","เลิศด้านถือธุดงค์"],["พระอนุรุทธะ","เลิศด้านทิพยจักษุ"],["พระเขมาเถรี","เลิศด้านมีปัญญามาก (ภิกษุณี)"],["พระอุบลวัณณาเถรี","เลิศด้านมีฤทธิ์มาก (ภิกษุณี)"],["นางวิสาขา","เลิศด้านการถวายทาน"],["นางขุชชุตตรา","เลิศด้านพหูสูต (อุบาสิกา)"],["พระนางพิมพา (ยโสธรา)","ผู้บรรลุอภิญญา เป็นแบบอย่างภรรยาและแม่ผู้ประเสริฐ"]];
+const Q3=[
+["เด็กชาย A เห็นเพื่อนทำกระเป๋าเงินตกและมีเงินมาก A อยากได้ แต่ระลึกถึงความซื่อสัตย์และนำไปคืนครู สะท้อนหลักธรรมใดชัดเจนที่สุด?",["หิริและโอตตัปปะ","ขันติ","กตัญญู","อุเบกขา"],0,"หิริ คือละอายต่อบาป โอตตัปปะ คือเกรงกลัวผลของบาป เป็นธรรมคุ้มครองโลก และตรงกับศีลข้อ 2","หลักธรรม"],
+["ข. เห็นเพื่อนถูกรุ่นพี่แกล้ง จึงเข้าไปช่วยเหลือและปลอบใจ ข. ใช้หลักธรรมใด?",["เมตตากรุณา","มุทิตา","อุเบกขา","สัจจะ"],0,"เมตตา คือปรารถนาให้สุข กรุณา คือคิดช่วยให้พ้นทุกข์ เป็นพรหมวิหารธรรม","หลักธรรม"],
+["ค. ถูกเพื่อนล้อเลียนแต่ไม่โต้ตอบด้วยความโกรธ ค. มีธรรมข้อใดเด่นที่สุด?",["ขันติ (อดทนอดกลั้น)","โลภะ","มานะ","ความเกียจคร้าน"],0,"ขันติ คือความอดทนอดกลั้น เป็นเครื่องเผากิเลส ตบะ อย่างยอดเยี่ยม","หลักธรรม"],
+["เวสสันดรชาดกสอนเรื่องบารมีข้อใดเด่นที่สุด?",["ทานบารมี","เนกขัมมบารมี","สัจจบารมี","อุเบกขาบารมี"],0,"พระเวสสันดรบริจาคทั้งทรัพย์ ช้างปัจจัยนาค และพระโอรสธิดา เพื่อบำเพ็ญทานบารมี","ชาดก"],
+["พระมหาชนกว่ายน้ำกลางมหาสมุทรถึง 7 วัน ไม่ท้อแท้ แสดงถึงธรรมข้อใด?",["วิริยะ (ความเพียร)","เมตตา","ทาน","ศีล"],0,"มหาชนกชาดกสอนให้มีความเพียรพยายามไม่ย่อท้อ แม้ไม่เห็นฝั่ง นางมณีเมขลาจึงมาช่วย","ชาดก"],
+["การถวายของแด่พระภิกษุสำหรับสตรี ควรปฏิบัติอย่างไรจึงถูกต้องตามศาสนพิธี?",["ส่งของให้ท่านโดยตรง","วางบนผ้ารับประเคนหรือภาชนะ ให้พระรับ","วางไว้บนพื้นแล้วเดินจากไป","โยนให้ท่านรับ"],1,"สตรีไม่ถูกต้องกายพระ จึงวางบนผ้ารับประเคนหรือภาชนะที่พระภิกษุรับ","ศาสนพิธี"],
+["การกราบแบบเบญจางคประดิษฐ์ มีอวัยวะ 5 อย่างสัมผัสพื้น ได้แก่?",["เข่า 2 มือ 2 หน้าผาก","เท้า 2 เข่า 2 หน้าอก","ศอก 2 เข่า 2 จมูก","มือ 2 เท้า 2 หน้าผาก"],0,"เบญจางคประดิษฐ์ คือ เข่าทั้งสอง มือทั้งสอง และหน้าผากจรดพื้น","ศาสนพิธี"],
+["น. ตื่นเช้ามาช่วยพ่อแม่ทำงานบ้านทุกวัน แสดงว่า น. มีคุณธรรมข้อใด?",["กตัญญูกตเวที","ความโลภ","มานะ","อิสสา"],0,"กตัญญู คือรู้คุณ กตเวที คือตอบแทนคุณ เป็นมงคลสูงสุดของลูกที่ดี","หลักธรรม"],
+["พิมพ์คำตอบ: ธรรมที่แปลว่า 'ความละอายต่อบาป' คืออะไร?",null,["หิริ"],"หิริ แปลว่า ความละอายต่อการทำชั่ว คู่กับ โอตตัปปะ (อ่านว่า โอด-ตับ-ปะ)","หลักธรรม"],
+["พิมพ์คำตอบ: ธรรมที่แปลว่า 'ความเกรงกลัวต่อผลของบาป' คืออะไร?",null,["โอตตัปปะ","โอตัปปะ"],"โอตตัปปะ คือสะดุ้งกลัวต่อผลของความชั่ว เป็นธรรมที่ทำให้โลกสงบสุข","หลักธรรม"]];
+
+/* ---------- GAME ---------- */
+let G,tmr;
+const letter=['ก','ข','ค','ง'];
+function drawMap(){
+ $('hxp').textContent='✨ บุญบารมี '+S.xp+' XP';$('hcoin').textContent='🪙 เหรียญธรรม '+S.coins;$('hbadge').textContent='🏅 ตรา '+S.badges.length;
+ $('stages').innerHTML=L.map((l,i)=>{const open=i===0||S.stars[i-1]>0;
+  return `<button class="stage ${open?'':'lock'}" ${open?`onclick="start(${i})"`:'disabled'}><span class="ic">${open?l.ic:'🔒'}</span><span><b class="mali">${l.n}</b><br><small>${l.place}<br>ผ่านเมื่อตอบถูก ${l.need*100}%</small><br><span class="stars">${'★'.repeat(S.stars[i])+'☆'.repeat(3-S.stars[i])}</span></span></button>`}).join('')+
+  (S.stars[2]>0?`<button class="big" onclick="show('epi')">🪔 เข้าสู่หอพุทธสาวกและสาวิกา</button>`:'');
+ $('prog').innerHTML=`<b class="mali">📈 ความก้าวหน้า</b><br>เล่นแล้ว ${S.played} ครั้ง · ตอบถูก ${S.right}/${S.total} ข้อ · ตราที่ได้: ${S.badges.join(', ')||'ยังไม่มี'}${S.perfect?` · 🌟 PERFECT DHAMMA SPELLER ×${S.perfect}`:''}`}
+function start(i){
+ let items;
+ if(i===0)items=sh(Q1);else if(i===2)items=sh(Q3);
+ else items=Array.from({length:10},()=>({m:sh(P).slice(0,3)}));
+ G={i,items,k:0,ok:0,combo:0,hearts:3,hints:3,xp:0,done:false};show('game');round()}
+function setHud(){$('gl').textContent=L[G.i].n.split('·')[0];$('gs').textContent='✨ '+G.xp;$('gh').textContent=(G.i===2?'❤️'.repeat(G.hearts)+'🖤'.repeat(3-G.hearts)+' ':'')+'💡'+G.hints;$('gp').style.width=(G.k/10*100)+'%'}
+function round(){
+ clearInterval(tmr);G.hinted=false;G.mis=false;const it=G.items[G.k];setHud();$('fb').className='fb';$('tm').textContent='';speechSynthesis.cancel();
+ $('hint').disabled=G.hints<1;$('gtopic').textContent=`ข้อ ${G.k+1}/10 · ${it.m?'พุทธสาวก-สาวิกา':it[4]}`;
+ if(it.m){G.cnt=0;G.sel=null;$('qt').textContent='จับคู่พุทธสาวก/พุทธสาวิกากับเอตทัคคะให้ถูกต้อง (แตะชื่อ แล้วแตะคู่ของมัน)';
+  const R=sh(it.m);$('qa').innerHTML='<div class="mt"><div id="ml"></div><div id="mr"></div></div>';
+  it.m.forEach(p=>$('ml').insertAdjacentHTML('beforeend',`<button style="width:100%;margin:5px 0" data-n="${p[0]}">${p[0]}</button>`));
+  R.forEach(p=>$('mr').insertAdjacentHTML('beforeend',`<button style="width:100%;margin:5px 0" data-n="${p[0]}">${p[1]}</button>`));
+  $('ml').onclick=e=>{const b=e.target.closest('button');if(!b||b.classList.contains('done'))return;[...$('ml').children].forEach(x=>x.classList.remove('sel'));b.classList.add('sel');G.sel=b};
+  $('mr').onclick=e=>{const b=e.target.closest('button');if(!b||b.classList.contains('done')||!G.sel)return;pair(b)};
+  let t=30;$('tm').textContent='⏳ '+t;tmr=setInterval(()=>{t--;$('tm').textContent='⏳ '+t;if(t<=0){clearInterval(tmr);G.mis=true;finish(false,it.m.map(p=>p[0]+': '+p[1]).join('\n'))}},1000)}
+ else if(it[1]){$('qt').textContent=it[0];G.o=sh(it[1].map((t,j)=>({t,c:j===it[2]})));
+  $('qa').innerHTML=G.o.map((o,j)=>`<button class="opt" data-j="${j}">${letter[j]}. ${o.t}</button>`).join('');
+  $('qa').onclick=e=>{const b=e.target.closest('.opt');if(b&&!G.done)pick(+b.dataset.j)}}
+ else{$('qt').textContent=it[0];$('qa').innerHTML='<input class="t" id="ti" placeholder="พิมพ์คำตอบที่นี่" autocomplete="off"><p><button onclick="typed()">ส่งคำตอบ</button></p>';$('ti').onkeydown=e=>{if(e.key==='Enter')typed()}}
+ G.done=false}
+function pair(b){const a=G.sel,it=G.items[G.k];
+ if(a.dataset.n===b.dataset.n){a.className=b.className='done';G.sel=null;chime(880,.2);if(++G.cnt===3){clearInterval(tmr);finish(!G.mis,it.m.map(p=>p[0]+' → '+p[1]).join('\n'))}}
+ else{G.mis=true;b.classList.add('sel');setTimeout(()=>b.classList.remove('sel'),400);chime(220,.3)}}
+function pick(j){G.done=true;const o=G.o[j],it=G.items[G.k];
+ [...$('qa').children].forEach((b,x)=>{b.disabled=true;if(G.o[x].c)b.classList.add('right')});if(!o.c)$('qa').children[j].classList.add('wrong');finish(o.c,it[3])}
+function typed(){if(G.done)return;const v=$('ti').value.trim().replace(/\s/g,''),it=G.items[G.k];if(!v)return;G.done=true;$('ti').disabled=true;finish(it[2].includes(v),'เฉลย: '+it[2][0]+'\n'+it[3])}
+function hint(){if(G.hints<1||G.done)return;const it=G.items[G.k];
+ if(it.m){const p=it.m.find(p=>![...$('ml').children].find(b=>b.dataset.n===p[0]).classList.contains('done'));if(!p)return;[...document.querySelectorAll('#ml button,#mr button')].filter(b=>b.dataset.n===p[0]).forEach(b=>b.className='done');if(++G.cnt===3){clearInterval(tmr);G.hinted=true;G.hints--;return finish(!G.mis,it.m.map(p=>p[0]+' → '+p[1]).join('\n'))}}
+ else if(it[1]){const w=G.o.map((o,j)=>j).filter(j=>!G.o[j].c&&!$('qa').children[j].disabled);sh(w).slice(0,2).forEach(j=>$('qa').children[j].disabled=true)}
+ else{$('ti').placeholder='ขึ้นต้นด้วย "'+it[2][0][0]+'"'}
+ G.hinted=true;G.hints--;$('hint').disabled=true;setHud()}
+function finish(ok,expl){clearInterval(tmr);G.done=true;const f=$('fb');let gain=0,extra='';
+ if(ok){G.ok++;G.combo++;gain=G.hinted?50:100;if(G.combo%3===0){gain=Math.round(gain*1.5);extra='<br>🌈 COMBO! แสงธรรมประกายรุ้ง โบนัส +50%'}G.xp+=gain;burst();chime(784,.8)}
+ else{G.combo=0;if(G.i===2)G.hearts--;chime(260,.6)}
+ setHud();const last=G.k===9||G.hearts<1;
+ f.className='fb on '+(ok?'ok':'no');
+ f.innerHTML=ok?`<h3>🙏 สาธุ! ปัญญาญาณเบ่งบาน (EXCELLENT WISDOM!)</h3><b>+${gain} แต้มบุญ</b>${extra}<p style="white-space:pre-line">${expl}</p>`:`<h3>🌫️ ไม่เป็นไร! มาเรียนรู้ธรรมะข้อนี้ด้วยกัน (KEEP TRYING!)</h3><p style="white-space:pre-line"><b>ธรรมวิเคราะห์:</b> ${expl}</p>`;
+ f.insertAdjacentHTML('beforeend',`<button onclick="next()">${last?'ดูผลการเดินทาง':'ข้อต่อไป'}</button>`);f.scrollIntoView({behavior:'smooth',block:'nearest'})}
+function burst(){$('aura').classList.remove('go');void $('aura').offsetWidth;$('aura').classList.add('go');for(let i=0;i<6;i++){const d=document.createElement('div');d.className='lot';d.textContent='🪷';d.style.left=(10+Math.random()*80)+'vw';d.style.top=(55+Math.random()*30)+'vh';document.body.appendChild(d);setTimeout(()=>d.remove(),1500)}}
+function next(){G.k++;if(G.k>=10||G.hearts<1)return end();round()}
+function quit(){clearInterval(tmr);speechSynthesis.cancel();show('map')}
+function speak(){if(!snd||!G)return;const it=G.items[G.k];speechSynthesis.cancel();const t=it.m?$('qt').textContent:it[0]+' '+(it[1]?G.o.map((o,j)=>letter[j]+' '+o.t).join(' '):'');const u=new SpeechSynthesisUtterance(t);u.lang='th-TH';u.rate=.9;speechSynthesis.speak(u)}
+function end(){clearInterval(tmr);const L_=L[G.i],pct=G.ok/10,pass=pct>=L_.need&&G.hearts>0;let st=pass?(pct===1?3:pct>=.9?2:1):0;
+ S.xp+=G.xp;S.played++;S.right+=G.ok;S.total+=G.k;let msg='';
+ if(pass){S.coins+=st*10;S.stars[G.i]=Math.max(S.stars[G.i],st);if(!S.badges.includes(L_.badge))S.badges.push(L_.badge);if(G.ok===10){S.perfect++;msg+='<p>🌟 <b>PERFECT DHAMMA SPELLER!</b> ตอบถูกทุกข้อ</p>'}chime(523,1.5)}
+ save();const nextOk=pass&&G.i<2;
+ $('rc').innerHTML=`<div style="font-size:70px">${pass?'🚪✨':'🌫️'}</div><h2>${pass?'ผ่านด่านแล้ว! ประตูหินโบราณเปิดออก':'ยังไม่ผ่านด่าน เรียนรู้ใหม่ได้เสมอ'}</h2><div class="stars" style="font-size:2.4rem">${'★'.repeat(st)+'☆'.repeat(3-st)}</div>
+ <p>ตอบถูก <b>${G.ok}/10</b> ข้อ · แต้มบุญ <b>${G.xp}</b> XP</p>${pass?`<p>🏅 ได้รับเหรียญตรา <b>"${L_.badge}"</b></p>`:`<p>ต้องตอบถูกอย่างน้อย ${L_.need*100}%${G.hearts<1?' และห้ามหัวใจหมด':''}</p>`}${msg}
+ <p><button onclick="start(${G.i})">เล่นด่านนี้อีกครั้ง</button> ${nextOk?`<button class="big" onclick="start(${G.i+1})">ไปด่านต่อไป</button>`:''} ${pass&&G.i===2?`<button class="big" onclick="show('epi')">พิธีรับเกียรติบัตร 🪔</button>`:''}</p><button class="ghost" onclick="show('map')">กลับแผนที่</button>`;show('res')}
+
+/* ---------- EPILOGUE ---------- */
+function cert(){const n=($('nm')||{}).value||'ผู้เรียน';$('cert').innerHTML=`<div style="font-size:48px">🪷🏅🪷</div><h2>ประกาศนียบัตรเชิดชูเกียรติ: บัณฑิตพุทธศาสน์</h2><p>ขอมอบให้แก่</p><div class="name">${n||'ผู้เรียน'}</div><p>ผู้ผ่านเส้นทางธรรมทั้ง 3 ด่าน<br>วิชาสังคมศึกษา (พระพุทธศาสนา) ชั้นมัธยมศึกษาปีที่ 2<br>บุญบารมีสะสม ${S.xp} XP · เหรียญธรรม ${S.coins}</p><p class="mali">วันที่ ${new Date().toLocaleDateString('th-TH',{dateStyle:'long'})}</p>`}
+const ST=[
+["พระนางพิมพา (ยโสธรา)","🌸",["พระนางพิมพาเป็นพระชายาของเจ้าชายสิทธัตถะ เมื่อพระสวามีเสด็จออกผนวช พระนางทรงเลี้ยงพระราหุลเพียงลำพัง","แม้ทรงเศร้า พระนางก็ทรงอดทนและซื่อสัตย์ ใช้ชีวิตเรียบง่ายตามพระสวามี","ภายหลังเสด็จออกบวชเป็นภิกษุณีและบรรลุอรหัตผล"],"ความอดทน ซื่อสัตย์ และความรักของแม่ ช่วยให้ผ่านความทุกข์ไปได้ ลองนึกถึงคนที่เสียสละเพื่อเราในบ้าน"],
+["พระสารีบุตร","🦉",["อุปติสสะ (สารีบุตร) พบพระอัสสชิเดินบิณฑบาตด้วยอาการสงบ จึงขอฟังธรรม","ได้ดวงตาเห็นธรรมทันที แล้วชวนโกลิตะ (โมคคัลลานะ) ไปบวชด้วยกัน","ท่านเป็นอัครสาวกเบื้องขวา เลิศด้านปัญญา และไหว้ทิศที่ครูอยู่เสมอ"],"ปัญญาเริ่มจากการตั้งใจฟัง และผู้มีปัญญาย่อมกตัญญูต่อครู"],
+["พระมหาโมคคัลลานะ","⚡",["โมคคัลลานะเป็นเพื่อนรักของสารีบุตร ออกบวชพร้อมกัน","ได้เป็นอัครสาวกเบื้องซ้าย เลิศด้านฤทธิ์","ท่านใช้ความสามารถช่วยผู้อื่นและเผยแผ่ธรรม ไม่ใช้เพื่ออวดตน"],"มิตรแท้ชวนกันไปทำความดี และความสามารถควรใช้เพื่อประโยชน์ส่วนรวม"],
+["พระองคุลิมาล","📿",["องคุลิมาลถูกอาจารย์หลอกให้ฆ่าคนเพื่อเอานิ้วมือมาทำพวงมาลัย","พระพุทธเจ้าเสด็จไปตรัสว่า 'เราหยุดแล้ว ส่วนเธอเล่าไม่หยุด' เขาจึงสำนึกและขอบวช","ท่านตั้งใจปฏิบัติจนบรรลุอรหัต"],"ใครก็กลับตัวเป็นคนดีได้ ถ้าเริ่มต้นใหม่ด้วยความสำนึกผิด และเราควรให้โอกาสผู้อื่น"],
+["นางวิสาขา มหาอุบาสิกา","🪷",["วิสาขาเป็นเด็กฉลาดและมีศรัทธา ได้บรรลุโสดาบันตั้งแต่อายุ 7 ขวบ","เมื่อโตขึ้นยังใช้ทรัพย์สร้างบุพพารามถวายพระสงฆ์","ท่านได้รับยกย่องว่าเลิศด้านการถวายทาน"],"การให้ทานด้วยศรัทธาและปัญญา สร้างประโยชน์ให้ผู้อื่นได้ยาวนาน"]];
+function drawChron(){$('chron').innerHTML=ST.map((s,i)=>`<button class="stage" onclick="story(${i})"><span class="ic">${s[1]}</span><b class="mali">${s[0]}</b></button>`).join('')}
+function story(i){const s=ST[i];$('sbody').innerHTML=`<h2>${s[1]} ${s[0]}</h2>`+s[2].map((t,j)=>`<div class="panel">${['🏞️'+s[1],s[1]+'🙏',s[1]+'✨'][j]}</div><p>${t}</p>`).join('')+`<div class="lesson"><b>ข้อคิดคติธรรม:</b> ${s[3]}</div>`;show('story')}
+</script></body></html>
